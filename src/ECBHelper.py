@@ -5,7 +5,9 @@ from Token import Token
 
 class ECBHelper:
 
-	def __init__(self, corpus, goldTruthFile, goldLegendFile):
+	def __init__(self, corpus, goldTruthFile, goldLegendFile, isVerbose):
+		self.isVerbose = isVerbose
+
 		self.corpus = corpus
 		self.goldTruthFile = goldTruthFile
 		self.refToDMs = defaultdict(list)
@@ -84,19 +86,21 @@ class ECBHelper:
 					print "ERROR: dm: " + str(dm) + " doesn't seem to belong to either the training, dev, or testing dirs specified here in ECBHelper"
 					exit(1)
 
-		print "goldDMs size (from goldTruth file): " + str(len(goldDMs)) + "; foundDMs (from the actual corpus): " + str(len(foundDMs))
-		if len(goldDMs) != len(foundDMs):
-			print "** ERROR: goldDMs didn't match 1-to-1"
+		if self.isVerbose:
+			print "goldDMs size (from goldTruth file): " + str(len(goldDMs)) + "; foundDMs (from the actual corpus): " + str(len(foundDMs))
+			if len(goldDMs) != len(foundDMs):
+				print "** ERROR: goldDMs didn't match 1-to-1"
 			#exit(1) #TODO; this shouldn't be commented out
 
 		# gets training pairs
 		trainingDMPairs = self.getDMPairs(trainingDMs)
 		devDMPairs = self.getDMPairs(devDMs)
 		testingDMPairs = self.getDMPairs(testingDMs)
-		print "# total goldPairs (from legend txt file): " + str(len(self.goldDMPairs))
-		print "# corpus-training pairs loaded: " + str(len(trainingDMPairs))
-		print "# corpus-dev pairs loaded: " + str(len(devDMPairs))
-		print "# corpus-testing pairs loaded: " + str(len(testingDMPairs))
+		if self.isVerbose:
+			print "# total goldPairs (from legend txt file): " + str(len(self.goldDMPairs))
+			print "# corpus-training pairs loaded: " + str(len(trainingDMPairs))
+			print "# corpus-dev pairs loaded: " + str(len(devDMPairs))
+			print "# corpus-testing pairs loaded: " + str(len(testingDMPairs))
 		return (trainingDMPairs, devDMPairs, testingDMPairs)
 
 	''' # DEFUNCT

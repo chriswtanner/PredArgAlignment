@@ -72,7 +72,9 @@ class ECBParser:
 		for f in files:
 			doc_id = f[f.rfind("/") + 1:]
 			dir_num = int(doc_id.split("_")[0])
-			print "parsing: " + doc_id + " (file " + str(files.index(f) + 1) + " of " + str(len(files)) + ")"
+			
+			if isVerbose:
+				print "parsing: " + doc_id + " (file " + str(files.index(f) + 1) + " of " + str(len(files)) + ")"
 			sys.stdout.flush()
 	        # DOC attributes
 			# tokenIDsToToken = defaultdict()
@@ -136,8 +138,9 @@ class ECBParser:
 			if self.reverseCorpus.lower() == 'true':
 				tmpDocTokens.reverse()
 
-			print "\t" + str(len(tmpDocTokens)) + " doc tokens"
-			print "\t# unique token ids: " + str(len(tmpDocTokenIDsToTokens))
+			if isVerbose:
+				print "\t" + str(len(tmpDocTokens)) + " doc tokens"
+				print "\t# unique token ids: " + str(len(tmpDocTokenIDsToTokens))
 
 			tokenToStitchedToken = {} # will assign each Token to its stitchedToken (e.g., 3 -> [3,4], 4 -> [3,4])
 			stitchedTokens = []
@@ -164,7 +167,7 @@ class ECBParser:
 					tmpCurrentMentionSpanIDs.sort()
 					#print "tmpCurrentMentionSpanIDs: " + str(tmpCurrentMentionSpanIDs)
 					spanRange = 1 + max(tmpCurrentMentionSpanIDs) - min(tmpCurrentMentionSpanIDs)
-					if spanRange != len(tmpCurrentMentionSpanIDs):
+					if isVerbose and spanRange != len(tmpCurrentMentionSpanIDs):
 						print "*** WARNING: the mention's token range seems to skip over a token id! " + str(tmpCurrentMentionSpanIDs)
 					else:
 
@@ -187,7 +190,8 @@ class ECBParser:
 							cur_token = tmpDocTokenIDsToTokens[str(token_id)]
 
 							if cur_token in tokenToStitchedToken.keys():
-								print "ERROR: OH NO, the same token id (" +  str(token_id) + ") is used in multiple Mentions!"
+								if isVerbose:
+									print "ERROR: OH NO, the same token id (" +  str(token_id) + ") is used in multiple Mentions!"
 								#print tokenToStitchedToken[cur_token]
 								#print tmpCurrentMentionSpanIDs
 								#exit(1)
@@ -305,6 +309,7 @@ class ECBParser:
 			g_id = self.getGlobalTypeID(t.text)
 			self.corpusTypeIDs.append(g_id)
 
+		'''
 		if isVerbose:
 			i=0
 			for i in range(len(self.corpusTokens)):
@@ -322,4 +327,4 @@ class ECBParser:
 				print str(ref) + ": "
 				for dm in self.refToDMs[ref]:
 					print "\t" + str(self.dmToMention[dm])
-			
+		'''

@@ -14,7 +14,8 @@ import sys
 class LSTMModel_old(object):
 
 	def __init__ (self, vocab_size, batch_size, num_steps, hidden_size, num_layers, max_grad_norm, decay_rate, is_training):
-		print "* LSTMModel init()"
+		#print "* LSTMModel init()"
+		tf.logging.set_verbosity(tf.logging.ERROR)
 		self.batch_size = batch_size
 		self.num_steps = num_steps
 		self.hidden_size = hidden_size

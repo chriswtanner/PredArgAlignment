@@ -2,28 +2,22 @@ import sys
 import collections
 sys.path.append('/gpfs/main/home/christanner/.local/lib/python2.7/site-packages/tensorflow/')
 import tensorflow as tf
+import numpy as np
+
 from ECBParser import ECBParser
 from ECBHelper import ECBHelper
 from LSTM_old import LSTM_old
-#from LSTM import LSTM
 from Word2Vec import Word2Vec
-#from FeatureCreator import FeatureCreator
 from collections import defaultdict
-from FFNN3 import FFNN3
 from multilayer_perceptron import multilayer_perceptron
-import numpy as np
 
 class Test:
 
 	# example run:
 	# python Test.py /Users/christanner/research/PredArgAlignment/ 25 true true true cpu lstm 100 3 5 10 1.0
 	if __name__ == "__main__":
-	#def __init__(self):
-		print "* in main()"
-		print tf.__version__
-		print "sys args: " + str(sys.argv)
-		sys.stdout.flush()
-			
+		#print tf.__version__
+		tf.logging.set_verbosity(tf.logging.ERROR)
 		isVerbose = False
 		w2v_vectorFile = "/Users/christanner/research/PredArgAlignment/tmp/word2vec_output.txt"
 
@@ -32,7 +26,6 @@ class Test:
 		readPlus = sys.argv[3] # use ecbplus.xml (true) or ecbp.xml (false)
 		stitchMentions = sys.argv[4] # true or false
 		reverseCorpus = sys.argv[5] # true or false
- 		#dev_name = sys.argv[6] # cpu or gpu
  		goldTruthFile = basePath + "data/goldTruth_events.txt"
 		goldLegendFile = basePath + "data/gold_events_legend.txt"
 
@@ -105,11 +98,9 @@ class Test:
 		corpusTextFile = basePath + "data/ECB+_LREC2014/TXT/" + str(corpusDir) + str(suffix) + ".txt"
 
 		corpus = ECBParser(corpusXMLFiles, corpusFilter, stitchMentions, reverseCorpus, isVerbose)
-		helper = ECBHelper(corpus, goldTruthFile, goldLegendFile)
+		helper = ECBHelper(corpus, goldTruthFile, goldLegendFile, isVerbose)
 		#helper.printMentions(0,"false")
 		#goldDMs = helper.getGoldDMs()
-
-
 
 		'''
 		for t in range(len(corpus.corpusTokens)):
@@ -135,37 +126,12 @@ class Test:
 			#mentionToVec = model.getVectors()
 			#print(str(len(mentionToVec.keys())))
 
-		sys.stdout.flush()
-
 		#(trainingDMPairs, testingDMPairs) = helper.getDMTrainTestSets(mentionToVec, -1)
 		#print "# training DMs: " + str(len(trainingDMPairs))
 		#print "# testing DMs: " + str(len(testingDMPairs))
 		
-		baseOut = basePath + "results/" + str(model_type) + "/" + str(config_name)
-
-		# TODO: change this!
-		'''
-		vectorLength = 2*hidden_size*(windowSize*2 + 1)
-		if nnmethod == "full":
-			vectorLength = 4*hidden_size*(windowSize*2 + 1)
-		nn = FFNN3(helper, vectorLength, model, baseOut, opts, hiddens, keep_inputs, subs, ne, lrs, moms, nnmethod, subsample, penalty, activation)
-		nn.trainAndTest()
-		'''
 		nn = multilayer_perceptron(helper, model, params)
-		exit(1)
-
-
-
-		#exit(1)
-
-		#fc = FeatureCreator(mentionToVec)
-		#fc.createVectorFullFeatures()
-		#fc.createVectorSubtractiveFeatures(hidden_size)
-		#fc.createCosineFeatures(hidden_size)
-		#fc.writeToFile(basePath + "models/" + str(model_type) + "/" + str(config_name) + ".features")
-		#fc.writeToFile("cosine", basePath + "models/" + str(model_type) + "/" + str(config_name) + ".cosinefeatures")
-		#fc.writeToFile("vecsub", basePath + "models/" + str(model_type) + "/" + str(config_name) + ".vecsubfeatures")
-		#fc.writeToFile("vecfull", basePath + "models/" + str(model_type) + "/" + str(config_name) + ".vecfullfeatures")
+		#baseOut = basePath + "results/" + str(model_type) + "/" + str(config_name)
 		
 		# constructs the new goldTruth_new[dirnum].txt file, which we only need to do if we edit the original XML files
 		# then we can 'cat' all of the dirnums together to make a new goldTruth

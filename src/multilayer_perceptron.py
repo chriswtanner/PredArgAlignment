@@ -9,6 +9,8 @@ class multilayer_perceptron:
 
     def __init__(self, helper, model, params):
 
+        self.isVerbose = False
+
         # essentials
         self.helper = helper
         self.model = model
@@ -38,7 +40,8 @@ class multilayer_perceptron:
         self.n_input = params["input_size"] # 2 for samelemma test
         self.n_classes = params["output_size"] # 2 for samelemma test
         
-        print(params)
+        if self.isVerbose:
+            print(params)
         # tf Graph input
         self.x = tf.placeholder("float", [None, self.n_input])
         self.y = tf.placeholder("float", [None, self.n_classes])
@@ -92,16 +95,32 @@ class multilayer_perceptron:
                     
                     trainPredictions = sess.run(self.predict, feed_dict={self.x: trainX, self.y: trainY, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
                     devPredictions = sess.run(self.predict, feed_dict={self.x: devX, self.y: devY, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
-                    #exit(1)
                     
                     (train_accuracy, train_f1) = self.calculateScore(trainY, trainPredictions)
                     (dev_accuracy, dev_f1) = self.calculateScore(devY, devPredictions)
-                    print("EPOCH " + str(epoch) + "; TRAIN f1:" + str(train_f1) + "; TRAIN accuracy: " + str(train_accuracy))
-                    print("EPOCH " + str(epoch) + "; DEV f1:" + str(dev_f1) + "; DEV accuracy: " + str(dev_accuracy))
+                    if self.isVerbose == True:
+                        print("EPOCH " + str(epoch) + "; TRAIN f1: " + str(train_f1) + "; TRAIN accuracy: " + str(train_accuracy))
+                        print("EPOCH " + str(epoch) + "; DEV f1: " + str(dev_f1) + " ; DEV accuracy: " + str(dev_accuracy))
                     #print("\nepoch "+ str(epoch) + " took " + str(round(time.time() - e_time, 1)) + " secs -- f1 (dev set): " + str(dev_f1) + ", " + str(dev_accuracy) + " -- (train set): " + str(train_f1) + ", " + str(train_accuracy))
                     sys.stdout.flush()
-                    
-            print("Optimization Finished!")
+
+                if epoch > 1 and epoch % 5 == 0:
+                    allTestGold = []
+                    allTestPred = []
+                    for dirNum in self.helper.testingDirs:
+                        (testX, testY) = self.loadVectorPairs(self.helper.testingDMPairs, dirNum, self.nnmethod)
+                        if len(testX) < 1:
+                            continue
+                        testPredictions = sess.run(self.predict, feed_dict={self.x: testX, self.y: testY, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
+                        (test_accuracy, test_f1) = self.calculateScore(testY, testPredictions)
+                        for i in range(len(testY)):
+                            allTestGold.append(testY[i])
+                            allTestPred.append(testPredictions[i])
+                    (all_test_accuracy, all_test_f1) = self.calculateScore(allTestGold, allTestPred)
+                    print("EPOCH " + str(epoch) + ": TEST_F1: " + str(all_test_f1) + "  TEST_accuracy: " + str(all_test_accuracy))
+                    allTestGold = [] # saves memory
+                    allTestPred = [] # saves memory
+
             allTestGold = []
             allTestPred = []
             for dirNum in self.helper.testingDirs:
@@ -110,12 +129,13 @@ class multilayer_perceptron:
                     continue
                 testPredictions = sess.run(self.predict, feed_dict={self.x: testX, self.y: testY, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
                 (test_accuracy, test_f1) = self.calculateScore(testY, testPredictions)
-                print("* TEST DIR " + str(dirNum) + ": f1:" + str(test_f1))
+                if self.isVerbose == True:
+                    print("* TEST DIR " + str(dirNum) + ": f1:" + str(test_f1))
                 for i in range(len(testY)):
                     allTestGold.append(testY[i])
                     allTestPred.append(testPredictions[i])
             (all_test_accuracy, all_test_f1) = self.calculateScore(allTestGold, allTestPred)
-            print("COMPLETE TEST F1:" + str(all_test_f1) + "; TEST accuracy: " + str(all_test_accuracy))
+            print("EPOCH " + str(epoch) + ": FINAL_TEST_F1: " + str(all_test_f1) + "  FINAL_TEST_accuracy: " + str(all_test_accuracy))
 
     def directLink(self):
         return self.x
@@ -205,10 +225,10 @@ class multilayer_perceptron:
         f1 = 0
         if prec > 0 or recall > 0:
             f1 = 2*float(prec * recall) / float(prec + recall)
-        
-        print("------")
-        print("num_golds_true: " + str(num_golds_true) + "; num_predicted_false: " + str(num_predicted_false) + "; num_predicted_true: " + str(num_predicted_true) + " (of these, " + str(num_correct) + " actually were)")
-        print("recall: " + str(recall) + "; prec: " + str(prec) + "; f1: " + str(f1) + "; accuracy: " + str(accuracy))
+        if self.isVerbose == True:
+            print("------")
+            print("num_golds_true: " + str(num_golds_true) + "; num_predicted_false: " + str(num_predicted_false) + "; num_predicted_true: " + str(num_predicted_true) + " (of these, " + str(num_correct) + " actually were)")
+            print("recall: " + str(recall) + "; prec: " + str(prec) + "; f1: " + str(f1) + "; accuracy: " + str(accuracy))
         return (accuracy, f1)
 
 
@@ -237,16 +257,19 @@ class multilayer_perceptron:
                 numPositives += 1
             elif label == 0:
                 numNegatives += 1
-        print("numP: " + str(numPositives))
-        print("numN: " + str(numNegatives))
+
+        if self.isVerbose == True:
+            print("numP: " + str(numPositives))
+            print("numN: " + str(numNegatives))
         num_examples = numPositives * (self.subsample + 1) # subSampleN negatives per 1 positive.
 
         x = np.ones((num_examples,dim))
         y = np.ndarray((num_examples,2)) # always a
         #print "making x size: " + str(num_examples) + " * " + str(dim+1)
         i = 0
-        print("(train) all examples: " + str(numPositives + numNegatives))
-        print("(train) num_examples (actually using): " + str(num_examples))
+        if self.isVerbose == True:
+            print("(train) all examples: " + str(numPositives + numNegatives))
+            print("(train) num_examples (actually using): " + str(num_examples))
 
         # populates the negatives
         num_filled = 0
@@ -405,7 +428,7 @@ class multilayer_perceptron:
             i = i + 1
             if i == num_examples:
                 break
-        print("*** LOADING VECTORS TOOK --- %s seconds ---" % (time.time() - start_time))
+        #print("*** LOADING VECTORS TOOK --- %s seconds ---" % (time.time() - start_time))
         return (x,y)
 
 
@@ -422,15 +445,18 @@ class multilayer_perceptron:
                 numPositives += 1
             elif label == 0:
                 numNegatives += 1
-        print("numP: " + str(numPositives))
-        print("numN: " + str(numNegatives))
+        if self.isVerbose == True:
+            print("numP: " + str(numPositives))
+            print("numN: " + str(numNegatives))
         num_examples = numPositives * (self.subsample + 1) # subSampleN negatives per 1 positive.
 
         x = np.ones((num_examples,dim))
         y = np.ndarray((num_examples,2)) # always a
 
         i = 0
-        print("num_examples: " + str(num_examples))
+        
+        if self.isVerbose == True:
+            print("num_examples: " + str(num_examples))
 
         # populates the negatives
         num_filled = 0
@@ -482,7 +508,8 @@ class multilayer_perceptron:
                     x[randIndex,0] = 0
                     x[randIndex,1] = 1
 
-        print("*** LOADING VECTORS TOOK --- %s seconds ---" % (time.time() - start_time))
+        if self.isVerbose == True:
+            print("*** LOADING VECTORS TOOK --- %s seconds ---" % (time.time() - start_time))
         return (x,y)
 
     def loadVectorPairsLemma(self, dmPairs, subset, method):
@@ -527,7 +554,8 @@ class multilayer_perceptron:
             i = i + 1
             if i == num_examples:
                 break
-        print("*** LOADING VECTORS TOOK --- %s seconds ---" % (time.time() - start_time))
+        if self.isVerbose == True:
+            print("*** LOADING VECTORS TOOK --- %s seconds ---" % (time.time() - start_time))
         return (x,y)
 
 def init_weight(shape):

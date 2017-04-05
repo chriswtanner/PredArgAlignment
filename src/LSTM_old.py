@@ -6,7 +6,6 @@ import collections
 import time
 import operator
 import math
-
 from LSTMModel_old import LSTMModel_old
 
 # HOW TO RUN:
@@ -18,6 +17,7 @@ carry_val = 0
 class LSTM_old:
 	def __init__(self, corpus, helper, hidden_size, num_steps, num_epochs, batch_size, learning_rate, windowSize, isVerbose):
 		# global vars
+		self.sanityCheck = False
 		self.helper = helper
 		self.globalIDsToType = corpus.globalIDsToType
 		self.typeToGlobalID = corpus.typeToGlobalID
@@ -49,8 +49,10 @@ class LSTM_old:
 		self.windowSize = windowSize # 2 and 6
 
 	def train(self):
-		print "*** corpus' # of unique types: " + str(self.numUniqueTypes)
-		print "*** corpus' # of raw tokens: " + str(len(self.corpusTokens))
+
+		if self.isVerbose:
+			print "*** corpus' # of unique types: " + str(self.numUniqueTypes)
+			print "*** corpus' # of raw tokens: " + str(len(self.corpusTokens))
 		with tf.Graph().as_default(), tf.Session() as session:
 			initializer = tf.random_uniform_initializer(-0.10, 0.10)
 
@@ -72,14 +74,17 @@ class LSTM_old:
 				session.run(tf.assign(mtrain._lr, self.learning_rate*lr_decay))
 
 				train_perplexity = run_epoch(self, session, mtrain, self.corpusTypeIDs, self.corpusTokens, mtrain._train_op, self.corpus, self.isVerbose, write=False)
-				print "(LSTM embedding training) epoch " + str(i) + " took " + str(round(time.time() - e_time, 1)) + " secs -- train_perplexity: " + str(train_perplexity)
+				if self.isVerbose:
+					print "(LSTM embedding training) epoch " + str(i) + " took " + str(round(time.time() - e_time, 1)) + " secs -- train_perplexity: " + str(train_perplexity)
 				sys.stdout.flush()
-			print("*** LSTM training took a total of " + str(round(time.time() - start_time, 1)) + " secs")
+			if self.isVerbose:
+				print("*** LSTM training took a total of " + str(round(time.time() - start_time, 1)) + " secs")
 			#test_perplexity, indexToHidden) = run_epoch(self, session, mtest, self.corpusTypeIDs, self.corpusTokens, tf.no_op(), self.corpus, self.isVerbose, write=True)
 			(test_perplexity, mentionToVec) = run_epoch(self, session, mtest, self.corpusTypeIDs, self.corpusTokens, tf.no_op(), self.corpus, self.isVerbose, write=True)
 			
 			#print "size of mentionToVec: " + str(len(mentionToVec.keys()))
-			print "*** LSTM test perplexity: " + str(test_perplexity)
+			if self.isVerbose:
+				print "*** LSTM test perplexity: " + str(test_perplexity)
 			#return indexToHidden
 			return mentionToVec
 	# returns cosine sim. b/w 2 vectors: a and b
@@ -215,7 +220,8 @@ def run_epoch(self, sess, model, tokenIDs, tokens, eval_op, corpus, isVerbose, w
 	if write == False:
 		return np.exp(costs/iters)
 	else:
-		if isVerbose:
+
+		if isVerbose and self.sanityCheck:
 			mentionToVec = {}
 			for dm in corpus.dmToREF.keys():
 				if dm not in self.dmsInGold:
