@@ -4,3 +4,4 @@ results/*
 slides/*
 src_old/*
 tmp/*
+src/*.pyc
