@@ -1,42 +1,5 @@
-----------------------------------
-    pre-processing data scripts
-----------------------------------
+PURPOSE:
+    performs cross-doc co-ref resolution for entities and events
 
-[1] FeatureGeneratorSS.py -- creates semantic space vectors for each of the word types that are contained with Mentions in the corpus
-
-  example run: python FeatureGeneratorSS.py <basepath> <slice#> <# total slices>
-          e.g. python FeatureGeneratorSS.py /Users/christanner/research/PredArgAlignment/ 1 100
-
-  on the grid: ./src/runSS_all.sh
-  NOTES:
-        - i can change END=200 (this must be the same as the # listed in runSS_Slice.sh to reflect how many pieces/jobs to split this into; there will be 200 pickle files saving these vectors)
-        - this runs ./src/runSS_Slice.sh which specifies 200
-
---------------
-
-[2] FeatureTransformerSS.py -- reads the SS vectors and, for each Mention, creates an 'average' vector that represents it
-  
-  example run: python FeatureTransformerSS.py <basepath> <clusterNum>
-          e.g. python FeatureTransformerSS.py /Users/christanner/research/PredArgAlignment/ 1
-  
-
-  on the grid: ./src/runSSGen_all.sh
-  NOTES:
-        - this splits it across 43 jobs (1 for each cluster)
-        - this runs ./src/runSSGen_Slice.sh
-
------------------
-
-[3] FeatureGeneratorWN.py -- creates the WordNet sim. scores for each of the 43 clusters
-   
-  example run: python FeatureGeneratorWN.py /Users/christanner/research/PredArgAlignment/ 1 <a or b>
-          e.g. python FeatureGeneratorWN.py /gpfs/main/home/christanner/researchcode/PredArgAligner/ 1 a
-
-  on the grid: ./src/runWNA_all.sh
-  NOTES:
-       - this splits it across 43 jobs (1 for each cluster)
-       - this runs ./src/runWN_Slice.sh
-
------------------
-
-[4] FeatureLoader.py -- loads the .p (docpair) vectors for each of the 43 clusters and outputs a normalized and unnormalized form
+HOW TO RUN:
+    

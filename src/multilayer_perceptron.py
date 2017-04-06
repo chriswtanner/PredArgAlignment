@@ -9,7 +9,7 @@ class multilayer_perceptron:
 
     def __init__(self, helper, model, params):
 
-        self.isVerbose = False
+        self.isVerbose = True
 
         # essentials
         self.helper = helper
@@ -45,6 +45,7 @@ class multilayer_perceptron:
         # tf Graph input
         self.x = tf.placeholder("float", [None, self.n_input])
         self.y = tf.placeholder("float", [None, self.n_classes])
+        self.p_keep_input = tf.placeholder("float")
         self.p_keep_hidden1 = tf.placeholder("float")
         self.p_keep_hidden2 = tf.placeholder("float")
 
@@ -85,7 +86,7 @@ class multilayer_perceptron:
                     #batch_x, batch_y = mnist.train.next_batch(self.batch_size)
 
                     # Run optimization op (backprop) and cost op (to get loss value)
-                    _, c = sess.run([self.train_op, self.loss_val], feed_dict={self.x: batch_x, self.y: batch_y, self.p_keep_hidden1: self.p_keep1, self.p_keep_hidden2: self.p_keep2})
+                    _, c = sess.run([self.train_op, self.loss_val], feed_dict={self.x: batch_x, self.y: batch_y, self.p_keep_input:0.9, self.p_keep_hidden1: self.p_keep1, self.p_keep_hidden2: self.p_keep2})
                     #print("epoch: " + str(epoch) + "batcH: " + str(i) + "; cost: " + str(c))
                     # Compute average loss
                     avg_cost += c / num_batches
@@ -93,8 +94,8 @@ class multilayer_perceptron:
                 # Display logs per epoch step
                 if epoch % self.display_step == 0:
                     
-                    trainPredictions = sess.run(self.predict, feed_dict={self.x: trainX, self.y: trainY, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
-                    devPredictions = sess.run(self.predict, feed_dict={self.x: devX, self.y: devY, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
+                    trainPredictions = sess.run(self.predict, feed_dict={self.x: trainX, self.y: trainY, self.p_keep_input:1.0, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
+                    devPredictions = sess.run(self.predict, feed_dict={self.x: devX, self.y: devY, self.p_keep_input:1.0, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
                     
                     (train_accuracy, train_f1) = self.calculateScore(trainY, trainPredictions)
                     (dev_accuracy, dev_f1) = self.calculateScore(devY, devPredictions)
@@ -111,7 +112,7 @@ class multilayer_perceptron:
                         (testX, testY) = self.loadVectorPairs(self.helper.testingDMPairs, dirNum, self.nnmethod)
                         if len(testX) < 1:
                             continue
-                        testPredictions = sess.run(self.predict, feed_dict={self.x: testX, self.y: testY, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
+                        testPredictions = sess.run(self.predict, feed_dict={self.x: testX, self.y: testY, self.p_keep_input:1.0, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
                         (test_accuracy, test_f1) = self.calculateScore(testY, testPredictions)
                         for i in range(len(testY)):
                             allTestGold.append(testY[i])
@@ -127,7 +128,7 @@ class multilayer_perceptron:
                 (testX, testY) = self.loadVectorPairs(self.helper.testingDMPairs, dirNum, self.nnmethod)
                 if len(testX) < 1:
                     continue
-                testPredictions = sess.run(self.predict, feed_dict={self.x: testX, self.y: testY, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
+                testPredictions = sess.run(self.predict, feed_dict={self.x: testX, self.y: testY, self.p_keep_input:1.0, self.p_keep_hidden1: 1.0, self.p_keep_hidden2: 1.0})
                 (test_accuracy, test_f1) = self.calculateScore(testY, testPredictions)
                 if self.isVerbose == True:
                     print("* TEST DIR " + str(dirNum) + ": f1:" + str(test_f1))
@@ -158,7 +159,7 @@ class multilayer_perceptron:
         biases['out'] = init_weight([self.n_classes])
         
         if self.activation == "relu":
-            layer_1 = tf.nn.relu(tf.add(tf.matmul(self.x, weights['h1']), biases['b1']))
+            layer_1 = tf.nn.relu(tf.add(tf.matmul(tf.nn.dropout(self.x, self.p_keep_input), weights['h1']), biases['b1']))
             layer_1 = tf.nn.dropout(layer_1, self.p_keep_hidden1)
             layer_2 = tf.nn.relu(tf.add(tf.matmul(layer_1, weights['h2']), biases['b2']))
             layer_2 = tf.nn.dropout(layer_2, self.p_keep_hidden2)

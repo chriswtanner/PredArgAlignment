@@ -1,43 +1,18 @@
-----------------------------------
-    pre-processing data scripts
-----------------------------------
+PURPOSE:
+    performs cross-doc co-ref resolution for entities and events
 
-[1] FeatureGeneratorSS.py -- creates semantic space vectors for each of the word types that are contained with Mentions in the corpus
+HOW TO RUN:
+    within src/ there are 2 bash scripts.  runLSTM_allDirs.sh is the one i invoke on a grid w/ GPUs, which submits several jobs (unique, complete runs of our program, just with different parameters per run).
 
-  example run: python FeatureGeneratorSS.py <basepath> <slice#> <# total slices>
-          e.g. python FeatureGeneratorSS.py /Users/christanner/research/PredArgAlignment/ 1 100
+    to invoke the program under any other environment, just:
+        (1) pass all variables (including 'path') to runLSTM_1b.sh just like how we are doing within runLSTM_allDirs.sh
 
-  on the grid: ./src/runSS_all.sh
-  NOTES:
-        - i can change END=200 (this must be the same as the # listed in runSS_Slice.sh to reflect how many pieces/jobs to split this into; there will be 200 pickle files saving these vectors)
-        - this runs ./src/runSS_Slice.sh which specifies 200
-        - MAKE SURE the outputDir path has been made apriori
+        NOTE: 'path' should point to the base directory (i.e., wherever PredArgAlignment/ resides)
+	
+OUTPUT:
+    the program will output the test set's F1 performance of EVENT coref after every 5 iterations of training.
 
---------------
-
-[2] FeatureTransformerSS.py -- reads the SS vectors and, for each Mention, creates an 'average' vector that represents it
-  
-  example run: python FeatureTransformerSS.py <basepath> <clusterNum>
-          e.g. python FeatureTransformerSS.py /Users/christanner/research/PredArgAlignment/ 1
-  
-
-  on the grid: ./src/runSSGen_all.sh
-  NOTES:
-        - this splits it across 43 jobs (1 for each cluster)
-        - this runs ./src/runSSGen_Slice.sh
-
------------------
-
-[3] FeatureGeneratorWN.py -- creates the WordNet sim. scores for each of the 43 clusters
-   
-  example run: python FeatureGeneratorWN.py /Users/christanner/research/PredArgAlignment/ 1 <a or b>
-          e.g. python FeatureGeneratorWN.py /gpfs/main/home/christanner/researchcode/PredArgAligner/ 1 a
-
-  on the grid: ./src/runWNA_all.sh
-  NOTES:
-       - this splits it across 43 jobs (1 for each cluster)
-       - this runs ./src/runWN_Slice.sh
-
------------------
-
-[4] FeatureLoader.py -- loads the .p (docpair) vectors for each of the 43 clusters and outputs a normalized and unnormalized form
+    NOTE: for way more detailed information of what is going on, simply change the 'isVerbose' flag manually which resides at the top in:
+        - Test.py (the main entry point of the program)
+        - multilayer_perceptron.py (the FFNN classifier)
+      
