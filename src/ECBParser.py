@@ -72,7 +72,7 @@ class ECBParser:
 		for f in files:
 			doc_id = f[f.rfind("/") + 1:]
 			dir_num = int(doc_id.split("_")[0])
-			
+			#print "parsing: " + doc_id + " (file " + str(files.index(f) + 1) + " of " + str(len(files)) + ")"
 			if isVerbose:
 				print "parsing: " + doc_id + " (file " + str(files.index(f) + 1) + " of " + str(len(files)) + ")"
 			sys.stdout.flush()
@@ -89,11 +89,14 @@ class ECBParser:
 			it = tuple(re.finditer(r"<token t\_id=\"(\d+)\" sentence=\"(\d+)\" number=\"(\d+)\".*?>(.*?)</(.*?)>", fileContents))
 			lastSentenceNum = -1
 
+			firstToken = True
 			for match in it:
 				t_id = match.group(1)
 				sentenceNum = int(match.group(2))
 				tokenNum = int(match.group(3))
 				tokenText = match.group(4).lower()
+
+				#print tokenText
 
 				# TMP
 				if sentenceNum > self.docToHighestSentenceNum[doc_id]:
@@ -101,17 +104,24 @@ class ECBParser:
 
 				if sentenceNum > 0 or "plus" not in doc_id:
 
+					#print "** not a 1st sent"
+
 					# we are starting a new sentence
 					if sentenceNum != lastSentenceNum:
 						
+						#print "** sent not equal to last"
 						# we are possibly ending the prev sentence
-						if lastSentenceNum != -1:
+						if not firstToken:
+						#if lastSentenceNum != -1:
+							#print "adding end1"
 							endToken = Token("-1", lastSentenceNum, -1, "<end>")
+							#exit(1)
 							#tokenToCorpusIndex[endToken] = numCorpusTokens
 							#numCorpusTokens = numCorpusTokens + 1
 							#self.corpusTokens.append(endToken)
 							tmpDocTokens.append(endToken)
 
+						#print "adding start"
 						startToken = Token("-1", sentenceNum, -1, "<start>")
 						#tokenToCorpusIndex[startToken] = numCorpusTokens
 						#numCorpusTokens = numCorpusTokens + 1
@@ -119,8 +129,10 @@ class ECBParser:
 						tmpDocTokens.append(startToken)
 
 					# adds token
+					#print "adding [" + str(tokenText) + "]"
 					curToken = Token(t_id, sentenceNum, tokenNum, tokenText)
 					tmpDocTokenIDsToTokens[t_id] = curToken
+					firstToken = False
 					#tokenIDsToToken[t_id] = curToken
 					#tokenToCorpusIndex[curToken] = numCorpusTokens
 					#numCorpusTokens = numCorpusTokens + 1
@@ -129,7 +141,10 @@ class ECBParser:
 				
 				lastSentenceNum = sentenceNum
 
+			#print "adding end2"
+			#exit(1)
 			endToken = Token("-1", lastSentenceNum, -1, "<end>")
+
 			#tokenToCorpusIndex[endToken] = numCorpusTokens
 			#numCorpusTokens = numCorpusTokens + 1
 			#self.corpusTokens.append(endToken)

@@ -45,16 +45,17 @@ class Test:
 
 		params["hidden1"] = int(sys.argv[15]) # 800-1000ish
 		params["hidden2"] = int(sys.argv[16]) # 400-800ish
-		params["p_keep_hidden1"] = float(sys.argv[17])
-		params["p_keep_hidden2"] = float(sys.argv[18])
-		params["num_epochs"] = int(sys.argv[19]) # was 25, 75
+		params["p_keep_input"] = float(sys.argv[17])
+		params["p_keep_hidden1"] = float(sys.argv[18])
+		params["p_keep_hidden2"] = float(sys.argv[19])
+		params["num_epochs"] = int(sys.argv[20]) # was 25, 75
 		
-		params["batch_size"] = int(sys.argv[20]) # 100
-		params["learning_rate"] = float(sys.argv[21])
-		params["momentum"] = float(sys.argv[22]) # [0.0, 0.1, 0.9]
-		params["subsample"] = int(sys.argv[23]) # e.g., 1 or 2
-		params["penalty"] = int(sys.argv[24]) # 2
-		params["activation"] = sys.argv[25] # e.g., activation or relu
+		params["batch_size"] = int(sys.argv[21]) # 100
+		params["learning_rate"] = float(sys.argv[22])
+		params["momentum"] = float(sys.argv[23]) # [0.0, 0.1, 0.9]
+		params["subsample"] = int(sys.argv[24]) # e.g., 1 or 2
+		params["penalty"] = int(sys.argv[25]) # 2
+		params["activation"] = sys.argv[26] # e.g., activation or relu
 
 		params["input_size"] = 2*hidden_size*(windowSize*2 + 1)
 		params["output_size"] = 2
@@ -103,9 +104,19 @@ class Test:
 		#goldDMs = helper.getGoldDMs()
 
 		'''
-		for t in range(len(corpus.corpusTokens)):
-			print str(t) + ": " + str(corpus.corpusTokens[t])
+		fout = open(basePath + "data/parserInput.txt", 'w')
+		for t in corpus.corpusTokens:
+			if t.text == "<start>":
+				fout.write("<s> ")
+			elif t.text == "<end>":
+				fout.write("</s>\n")
+			else:
+				fout.write(t.text + " ")
+		#for t in range(len(corpus.corpusTokens)):
+		#	print str(t) + ": " + str(corpus.corpusTokens[t])
+		exit(1)
 		'''
+			
 
 		# write the text file versions just once, then 'cat' them all to make a new 0.txt
 		#corpus.writeToTextFile(corpusTextFile)

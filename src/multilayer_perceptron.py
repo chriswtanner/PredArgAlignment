@@ -25,6 +25,7 @@ class multilayer_perceptron:
         self.n_hidden_1 = params["hidden1"]
         self.n_hidden_2 = params["hidden2"]
         self.n_hidden_3 = 800
+        self.p_keep0 = params["p_keep_input"]
         self.p_keep1 = params["p_keep_hidden1"]
         self.p_keep2 = params["p_keep_hidden2"]
         self.p_keep3 = 1.0
@@ -86,7 +87,7 @@ class multilayer_perceptron:
                     #batch_x, batch_y = mnist.train.next_batch(self.batch_size)
 
                     # Run optimization op (backprop) and cost op (to get loss value)
-                    _, c = sess.run([self.train_op, self.loss_val], feed_dict={self.x: batch_x, self.y: batch_y, self.p_keep_input:0.9, self.p_keep_hidden1: self.p_keep1, self.p_keep_hidden2: self.p_keep2})
+                    _, c = sess.run([self.train_op, self.loss_val], feed_dict={self.x: batch_x, self.y: batch_y, self.p_keep_input: self.p_keep0, self.p_keep_hidden1: self.p_keep1, self.p_keep_hidden2: self.p_keep2})
                     #print("epoch: " + str(epoch) + "batcH: " + str(i) + "; cost: " + str(c))
                     # Compute average loss
                     avg_cost += c / num_batches
