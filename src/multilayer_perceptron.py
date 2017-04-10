@@ -28,7 +28,6 @@ class multilayer_perceptron:
         self.p_keep0 = params["p_keep_input"]
         self.p_keep1 = params["p_keep_hidden1"]
         self.p_keep2 = params["p_keep_hidden2"]
-        self.p_keep3 = 1.0
         self.batch_size = params["batch_size"]
 
         self.training_epochs = params["num_epochs"]
@@ -148,15 +147,15 @@ class multilayer_perceptron:
         weights = {}
         weights['h1'] = init_weight([self.n_input, self.n_hidden_1])
         weights['h2'] = init_weight([self.n_hidden_1, self.n_hidden_2])
-        weights['h3'] = init_weight([self.n_hidden_2, self.n_hidden_3])
-
         weights['out'] = init_weight([self.n_hidden_2, self.n_classes])
+
+        #weights['h3'] = init_weight([self.n_hidden_2, self.n_hidden_3])        
         #weights['out'] = init_weight([self.n_hidden_3, self.n_classes])
+        
         biases = {}
         biases['b1'] = init_weight([self.n_hidden_1])
         biases['b2'] = init_weight([self.n_hidden_2])
-        biases['b3'] = init_weight([self.n_hidden_3])
-
+        #biases['b3'] = init_weight([self.n_hidden_3])
         biases['out'] = init_weight([self.n_classes])
         
         if self.activation == "relu":

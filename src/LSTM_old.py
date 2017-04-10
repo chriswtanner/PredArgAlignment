@@ -230,13 +230,13 @@ def run_epoch(self, sess, model, tokenIDs, tokens, eval_op, corpus, isVerbose, w
 			#for m in corpus.mentions:
 				m = corpus.dmToMention[dm]
 				avg_vec = [0]*2*self.hidden_size
-				for ti in m.corpusTokenIDs:
+				for ti in m.corpusTokenIndices:
 					cur_hidden = self.indexToHidden[ti]
 					for i in range(len(cur_hidden)):
 						avg_vec[i] = avg_vec[i] + cur_hidden[i]
 				# normalizes
 				for i in range(len(avg_vec)):
-					avg_vec[i] = avg_vec[i] / len(m.corpusTokenIDs)
+					avg_vec[i] = avg_vec[i] / len(m.corpusTokenIndices)
 					mentionToVec[m] = avg_vec
 
 			for m1 in mentionToVec.keys():
@@ -301,15 +301,15 @@ def run_epoch(self, sess, model, tokenIDs, tokens, eval_op, corpus, isVerbose, w
 			# gets vector for the mention
 			avg_vec = [0]*2*model.hidden_size
 			#print "mention: " + str(m)
-			#print "\t" + str(m.corpusTokenIDs)
-			for ti in m.corpusTokenIDs:
+			#print "\t" + str(m.corpusTokenIndices)
+			for ti in m.corpusTokenIndices:
 				cur_hidden = self.indexToHidden[ti]
 				for i in range(len(cur_hidden)):
 					avg_vec[i] = avg_vec[i] + cur_hidden[i]
 			
 			# normalizes
 			for i in range(len(avg_vec)):
-				avg_vec[i] = avg_vec[i] / len(m.corpusTokenIDs)
+				avg_vec[i] = avg_vec[i] / len(m.corpusTokenIndices)
 
 			# gets vector for the prev tokens
 			nextTokens = self.helper.getMentionNextTokenIndices(m, self.windowSize)
@@ -335,8 +335,8 @@ def run_epoch(self, sess, model, tokenIDs, tokens, eval_op, corpus, isVerbose, w
 			print "prev: " + str(prevTokens)
 			for i in prevTokens:
 				print self.corpusTokens[i]
-			print m.corpusTokenIDs
-			for i in m.corpusTokenIDs:
+			print m.corpusTokenIndices
+			for i in m.corpusTokenIndices:
 				print self.corpusTokens[i]
 			print "next: " + str(nextTokens)
 			for i in nextTokens:

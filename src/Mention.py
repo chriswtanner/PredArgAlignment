@@ -1,11 +1,11 @@
 class Mention:
 
-	def __init__(self, dirNum, doc_id, m_id, tokens, corpusTokenIDs, text, isPred):
+	def __init__(self, dirNum, doc_id, m_id, tokens, corpusTokenIndices, text, isPred):
 		self.dirNum = dirNum
 		self.doc_id = doc_id
 		self.m_id = m_id
 		self.tokens = tokens # can remove after testing HDDCRP
-		self.corpusTokenIDs = corpusTokenIDs
+		self.corpusTokenIndices = corpusTokenIndices
 		self.text = text
 		self.isPred = isPred
 		self.relativeTokenIndices = []
@@ -25,5 +25,5 @@ class Mention:
 		self.ref_id = ref_id
 
 	def __str__(self):
-		return "MENTION: " + str(self.m_id) + " (dir " + str(self.dirNum) + "; doc: " + str(self.doc_id) + "): text: " + str(self.text) + " corpusIndices: " + str(self.corpusTokenIDs)
+		return "MENTION: " + str(self.m_id) + " (dir " + str(self.dirNum) + "; doc: " + str(self.doc_id) + "): text: " + str(self.text) + " corpusIndices: " + str(self.corpusTokenIndices)
 		#return "MENTION: REF: " + str(self.ref_id) + "; dirNum:" + str(self.dirNum) + "; doc_id:" + str(self.doc_id) + "; m_id:" + str(self.m_id) + "; token_ids: " + str(self.orig_tokenIDs) + "; prevToken (" + str(self.prevToken) + ") and prevIndex: " + str(self.prevTokenRelativeIndex) + "; text:" + str(self.text) + "; reltokenindices: " + str(self.relativeTokenIndices)

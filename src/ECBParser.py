@@ -21,16 +21,6 @@ class ECBParser:
 	def __init__(self, corpusXMLFiles, corpusFilter, stitchTogether, reverse, isVerbose):
 		self.parse(corpusXMLFiles, corpusFilter, stitchTogether, reverse, isVerbose)
 
-	def writeToTextFile(self, outputFile):		
-		print "writing out " + str(len(self.docTokens)) + " lines to " + str(outputFile)		
-		fout = open(outputFile, 'w')
-		for d in self.docTokens:
-			tmpout = "" # allows for removing the trailing space
-			for t in d:
-				tmpout = tmpout + t.text + " "
-			fout.write(tmpout.rstrip() + "\n")
-		fout.close()
-
 	def getGlobalTypeID(self, wordType):
 		if wordType in self.typeToGlobalID.keys():
 			return self.typeToGlobalID[wordType]

@@ -7,19 +7,18 @@ import numpy as np
 from ECBParser import ECBParser
 from ECBHelper import ECBHelper
 from LSTM_old import LSTM_old
-from Word2Vec import Word2Vec
+from WordEmbeddings import WordEmbeddings
 from collections import defaultdict
 from multilayer_perceptron import multilayer_perceptron
 
 class Test:
-
 	# example run:
 	# python Test.py /Users/christanner/research/PredArgAlignment/ 25 true true true cpu lstm 100 3 5 10 1.0
 	if __name__ == "__main__":
 		#print tf.__version__
 		tf.logging.set_verbosity(tf.logging.ERROR)
-		isVerbose = False
-		w2v_vectorFile = "/Users/christanner/research/PredArgAlignment/tmp/word2vec_output.txt"
+		isVerbose = True
+
 
 		basePath = sys.argv[1] # /Users/christanner/research/PredArgAlignment/ or /data/people/christanner/
 		corpusDir = int(sys.argv[2]) # 25  (-1 is the flag for running a global model across all dirs)
@@ -28,6 +27,7 @@ class Test:
 		reverseCorpus = sys.argv[5] # true or false
  		goldTruthFile = basePath + "data/goldTruth_events.txt"
 		goldLegendFile = basePath + "data/gold_events_legend.txt"
+		vectorFile = basePath + "data/word2vec_output.txt"
 
 		# model params
 		model_type = sys.argv[6] # lstm, charcnn, word2vec
@@ -38,6 +38,16 @@ class Test:
 		learning_rate = float(sys.argv[11]) # 1.0
 		windowSize = int(sys.argv[12])
 
+		if model_type == "gs100":
+			vectorFile = basePath + "data/glove_stitched_100.txt"
+		elif model_type == "gs400":
+			vectorFile = basePath + "data/glove_stitched_400.txt"
+		elif model_type == "gns100": # non-stitched 100-length vectors
+			vectorFile = basePath + "data/glove_nonstitched_100.txt"
+		elif model_type == "gns400":
+			vectorFile = basePath + "data/glove_nonstitched_400.txt"
+
+		print("model_type: " + str(model_type))
 		# NN classifier params
 		params = {}
 		params["nnmethod"] = sys.argv[13] # sub or full
@@ -60,8 +70,6 @@ class Test:
 		params["input_size"] = 2*hidden_size*(windowSize*2 + 1)
 		params["output_size"] = 2
 
-		if params["nnmethod"] == "full":
-			params["input_size"] = 4*hidden_size*(windowSize*2 + 1)
 
 		if corpusDir == -1:
 			corpusXMLFiles = basePath + "data/ECB+_LREC2014/ECB+/"
@@ -73,25 +81,21 @@ class Test:
 			corpusXMLFiles = basePath + "data/ECB+_LREC2014/ECB+/" + str(corpusDir) + "/"
 
 		corpusFilter = ""
-		
 		suffix = ""
 		if stitchMentions.lower() == 'true':
 			suffix = "_stitched"
 		else:
 			suffix = "_nonstitched"
-
 		if reverseCorpus.lower() == 'true':
 			suffix = suffix + "_reverse"
 		else:
 			suffix = suffix + "_forward"
-
 		if readPlus.lower() == 'true':
 			suffix = suffix + "_ecbplus"
 			corpusFilter = "ecbplus.xml"
 		else:
 			suffix = suffix + "_ecb"
 			corpusFilter = "ecb.xml"
-
 		if corpusDir < 0:
 			suffix = ""
 			corpusFilter = ".xml"
@@ -100,57 +104,16 @@ class Test:
 
 		corpus = ECBParser(corpusXMLFiles, corpusFilter, stitchMentions, reverseCorpus, isVerbose)
 		helper = ECBHelper(corpus, goldTruthFile, goldLegendFile, isVerbose)
-		#helper.printMentions(0,"false")
-		#goldDMs = helper.getGoldDMs()
 
-		'''
-		fout = open(basePath + "data/parserInput.txt", 'w')
-		for t in corpus.corpusTokens:
-			if t.text == "<start>":
-				fout.write("<s> ")
-			elif t.text == "<end>":
-				fout.write("</s>\n")
-			else:
-				fout.write(t.text + " ")
-		#for t in range(len(corpus.corpusTokens)):
-		#	print str(t) + ": " + str(corpus.corpusTokens[t])
-		exit(1)
-		'''
-			
+		#helper.writeToTextFile(basePath + "data/allTokens.txt")
 
-		# write the text file versions just once, then 'cat' them all to make a new 0.txt
-		#corpus.writeToTextFile(corpusTextFile)
-		#exit(1)
-
-		# "/data/people/christanner/models/"
-		#mentionToVec = {}
 		model = None
 		if model_type == 'lstm':
-			config_name = str(stitchMentions) + "_ws" + str(windowSize) + "_h" + str(hidden_size) + "_ns" + str(num_steps) + "_ne" + str(num_epochs) + "_bs" + str(batch_size) + "_lr" + str(learning_rate) + str(suffix) + "_dir" + str(corpusDir)
-			#modelOutputFile =  basePath + "models/" + str(model_type) + "/" + str(config_name) + ".allvectors"
 			model = LSTM_old(corpus, helper, hidden_size, num_steps, num_epochs, batch_size, learning_rate, windowSize, isVerbose)
-			#mentionToVec = model.train()
-			#print "LSTM is returning # keys: " + str(len(mentionToVec.keys()))
-		elif model_type == 'word2vec':
-			config_name = "word2vec"
-			model = Word2Vec(corpus, helper, w2v_vectorFile, helper.getGoldDMs())
-			#mentionToVec = model.getVectors()
-			#print(str(len(mentionToVec.keys())))
-
-		#(trainingDMPairs, testingDMPairs) = helper.getDMTrainTestSets(mentionToVec, -1)
-		#print "# training DMs: " + str(len(trainingDMPairs))
-		#print "# testing DMs: " + str(len(testingDMPairs))
-		
+		elif model_type == 'word2vec' or model_type[0:1] == 'g':
+			model = WordEmbeddings(corpus, helper, vectorFile, windowSize, helper.getGoldDMs())
+			params["input_size"] = (windowSize*2 + 1)*model.hidden_size
+			sys.stdout.flush()
+		if params["nnmethod"] == "full":
+			params["input_size"] = 2*params["input_size"]
 		nn = multilayer_perceptron(helper, model, params)
-		#baseOut = basePath + "results/" + str(model_type) + "/" + str(config_name)
-		
-		# constructs the new goldTruth_new[dirnum].txt file, which we only need to do if we edit the original XML files
-		# then we can 'cat' all of the dirnums together to make a new goldTruth
-		''' 
-		goldF = open(basePath + "data/goldTruth_new" + str(corpusDir) + ".txt", 'w')
-		for dm in corpus.dmToREF.keys():
-			(doc_id,m_id) = dm
-			dirnum = doc_id[0:2]
-			goldF.write(str(dirnum) + ";" + corpus.dmToREF[dm] + ";" + doc_id + ";" + str(m_id) + ";\n")
-		goldF.close()
-		'''

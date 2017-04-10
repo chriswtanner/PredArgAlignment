@@ -45,6 +45,41 @@ class ECBHelper:
 		self.devDMPairs = devDMPairs
 		self.testingDMPairs = testingDMPairs
 
+
+	# NEVER CALLED; but would be passed (basePath + "data/parserInput.txt")
+	def writeToCharniakParserInputFormat(self, outputFile):
+		fout = open(outputFile, 'w')
+		for t in self.corpus.corpusTokens:
+			if t.text == "<start>":
+				fout.write("<s> ")
+			elif t.text == "<end>":
+				fout.write("</s>\n")
+			else:
+				fout.write(t.text + " ")
+
+	# NEVER CALLED; but i once made it in Test.py
+	# write the text file versions just once, then 'cat' them all to make a new 0.txt
+	def writeToTextFile(self, outputFile):		
+		print "writing out " + str(len(self.corpus.docTokens)) + " lines to " + str(outputFile)		
+		fout = open(outputFile, 'w')
+		for d in self.corpus.docTokens:
+			tmpout = "" # allows for removing the trailing space
+			for t in d:
+				tmpout = tmpout + t.text + " "
+			fout.write(tmpout.rstrip() + "\n")
+		fout.close()
+
+	# NEVER CALLED; but i once made it in Test.py
+	# constructs the new goldTruth_new[dirnum].txt file, which we only need to do if we edit the original XML files
+	# then we can 'cat' all of the dirnums together to make a new goldTruth
+	def makeConciseGoldTruthFile(self, basePath):
+		goldF = open(basePath + "data/goldTruth_new" + str(corpusDir) + ".txt", 'w')
+		for dm in self.corpus.dmToREF.keys():
+			(doc_id,m_id) = dm
+			dirnum = doc_id[0:2]
+			goldF.write(str(dirnum) + ";" + corpus.dmToREF[dm] + ";" + doc_id + ";" + str(m_id) + ";\n")
+		goldF.close()
+
 	def getDMPairs(self, dms):
 		dmPairsSet = set() # just to 
 		dmPairsList = []
@@ -164,21 +199,18 @@ class ECBHelper:
 		for ref in self.refToDMs.keys():
 			#print "REF: " + str(ref)
 			for dm in self.refToDMs[ref]:
-				
 				if dm not in self.corpus.dmToMention.keys():
 					continue
-
 				m = self.corpus.dmToMention[dm]
 				print "\t" + str(dm) + ": " + str(m)
 				tokensWeCareAbout = self.getMentionContextIndices(m, windowSize, includeMiddleOfMention)
 				print tokensWeCareAbout
 
-
 	# returns the corpusTokens' index to the mention and its 'windowSize' words on each side
 	def getMentionContextIndices(self, mention, windowSize, includeMiddleOfMention):
 		ret = []
-		startingIndex = mention.corpusTokenIDs[0]
-		endingIndex = mention.corpusTokenIDs[-1]
+		startingIndex = mention.corpusTokenIndices[0]
+		endingIndex = mention.corpusTokenIndices[-1]
 		start = max(0, startingIndex - windowSize)
 		for i in range(start, startingIndex):
 			if i not in ret:
@@ -189,7 +221,7 @@ class ECBHelper:
 				if i not in ret:
 					ret.append(i)
 		else:
-			for i in mention.corpusTokenIDs:
+			for i in mention.corpusTokenIndices:
 				if i not in ret:
 					ret.append(i)
 
@@ -201,7 +233,7 @@ class ECBHelper:
 
 	def getMentionPrevTokenIndices(self, mention, windowSize):
 		ret = []
-		startingIndex = mention.corpusTokenIDs[0]
+		startingIndex = mention.corpusTokenIndices[0]
 		start = max(0, startingIndex - windowSize)
 		for i in range(start, startingIndex):
 			if i not in ret:
@@ -210,7 +242,7 @@ class ECBHelper:
 
 	def getMentionNextTokenIndices(self, mention, windowSize):
 		ret = []
-		endingIndex = mention.corpusTokenIDs[-1]
+		endingIndex = mention.corpusTokenIndices[-1]
 		end = min(endingIndex + windowSize, len(self.corpus.corpusTokens) - 1)
 		for i in range(endingIndex + 1, end + 1):
 			if i not in ret:
