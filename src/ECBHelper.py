@@ -21,12 +21,18 @@ class ECBHelper:
 		self.devDirs = range(23,26)
 		self.testingDirs = range(26,46)
 
+		self.dirToREFS = defaultdict(set) # temporarily, only used for self.printMentionSentences()
+
 		f = open(goldTruthFile, 'r')
 		for line in f:
 			(dirNum, ref, doc_id, m_id, lemma, headword) = line.rstrip().split(";")
-			key = (str(doc_id),int(m_id))
-			self.refToDMs[ref].append(key)
-			self.dmToLemma[key] = lemma
+			dm = (str(doc_id),int(m_id))
+
+			dirNum = int(dm[0][0:dm[0].find("_")])
+			self.dirToREFS[dirNum].add(ref)
+
+			self.refToDMs[ref].append(dm)
+			self.dmToLemma[dm] = lemma
 		f.close()
 
 		f = open(goldLegendFile, 'r')
@@ -69,6 +75,10 @@ class ECBHelper:
 			fout.write(tmpout.rstrip() + "\n")
 		fout.close()
 
+	def printAllTokens(self):		
+		for t in self.corpus.corpusTokens:
+			print(str(t))
+
 	# NEVER CALLED; but i once made it in Test.py
 	# constructs the new goldTruth_new[dirnum].txt file, which we only need to do if we edit the original XML files
 	# then we can 'cat' all of the dirnums together to make a new goldTruth
@@ -76,7 +86,7 @@ class ECBHelper:
 		goldF = open(basePath + "data/goldTruth_new" + str(corpusDir) + ".txt", 'w')
 		for dm in self.corpus.dmToREF.keys():
 			(doc_id,m_id) = dm
-			dirnum = doc_id[0:2]
+			dirnum = doc_id[0:2] # THIS LOOKS WRONG
 			goldF.write(str(dirnum) + ";" + corpus.dmToREF[dm] + ";" + doc_id + ";" + str(m_id) + ";\n")
 		goldF.close()
 
@@ -193,6 +203,43 @@ class ECBHelper:
 		for dm in self.dmToLemma.keys():
 			dms.add(dm)
 		return dms
+
+	def printMentionSentences(self):
+
+		sentToTokens = defaultdict(list)
+		for t in self.corpus.corpusTokens:
+			sentNum = t.globalSentenceNum
+			sentToTokens[sentNum].append(t)
+
+		for dirNum in self.dirToREFS.keys():
+			print("\n=====================================")
+			print("    DIR " + str(dirNum) + " (has " + str(len(self.dirToREFS[dirNum])) + " unique entity clusters, which follow below)")
+			print("=====================================")
+			for ref in self.dirToREFS[dirNum]:
+				print("\n-------------\nREF: " + ref + "\n-------------")
+
+				for dm in self.refToDMs[ref]:
+					if dm in self.corpus.dmToMention.keys():
+						mention = self.corpus.dmToMention[dm]
+						#print("MENTION" + str(mention))
+						firstMentionToken = mention.tokens[0]
+						sentNum = firstMentionToken.globalSentenceNum
+						tmpOut = ""
+						inMention = False
+						for t in sentToTokens[sentNum]:
+							if t in mention.tokens:
+								if inMention == False:
+									tmpOut = tmpOut + "**[ "
+									inMention = True
+							else:
+								if inMention == True:
+									tmpOut = tmpOut + "]** "
+									inMention = False
+
+							tmpOut = tmpOut + t.text + " "
+						print "\n" + tmpOut
+			
+		exit(1)
 
 	def printMentions(self, windowSize, includeMiddleOfMention):
 		n = 3

@@ -4,6 +4,7 @@ sys.path.append('/gpfs/main/home/christanner/.local/lib/python2.7/site-packages/
 import tensorflow as tf
 import numpy as np
 
+from sklearn.cluster import KMeans
 from ECBParser import ECBParser
 from ECBHelper import ECBHelper
 from LSTM_old import LSTM_old
@@ -70,7 +71,6 @@ class Test:
 		params["input_size"] = 2*hidden_size*(windowSize*2 + 1)
 		params["output_size"] = 2
 
-
 		if corpusDir == -1:
 			corpusXMLFiles = basePath + "data/ECB+_LREC2014/ECB+/"
 		elif corpusDir == -2:
@@ -105,6 +105,9 @@ class Test:
 		corpus = ECBParser(corpusXMLFiles, corpusFilter, stitchMentions, reverseCorpus, isVerbose)
 		helper = ECBHelper(corpus, goldTruthFile, goldLegendFile, isVerbose)
 
+		#helper.printAllTokens()
+		#helper.printMentionSentences()
+		#exit(1)
 		#helper.writeToTextFile(basePath + "data/allTokens.txt")
 
 		model = None
@@ -116,4 +119,22 @@ class Test:
 			sys.stdout.flush()
 		if params["nnmethod"] == "full":
 			params["input_size"] = 2*params["input_size"]
-		nn = multilayer_perceptron(helper, model, params)
+		
+		mention2Vec = model.train()
+		for mention in mention2Vec.keys():
+			print(str(mention) + " has vec:")
+			print("\t" + str(mention2Vec[mention]))
+			exit(1)
+
+		# scratch pad
+		X = np.array([[1, 2], [1, 4], [1, 0],[4, 2], [4, 4], [4, 0]])
+		print(X.shape)
+		print(type(X))
+		print(X)
+		exit(1)
+		kmeans = KMeans(n_clusters=4, random_state=0).fit(X)
+		print(kmeans.labels_)
+		kmeans.predict([[0, 0], [4, 4]])
+		print(kmeans.cluster_centers_)
+
+		#nn = multilayer_perceptron(helper, model, params)

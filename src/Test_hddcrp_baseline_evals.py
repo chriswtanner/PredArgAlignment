@@ -24,15 +24,7 @@ class Test_hddcrp_baseline_evals:
 		readPlus = sys.argv[3] # use ecbplus.xml (true) or ecbp.xml (false)
 		stitchMentions = sys.argv[4] # true or false
 		reverseCorpus = sys.argv[5] # true or false
- 		dev_name = sys.argv[6] # cpu or gpu
 
-		# model params
-		model_type = sys.argv[7] # lstm, charcnn, word2vec
-		hidden_size = int(sys.argv[8]) # 100
-		num_steps = int(sys.argv[9]) # 3
-		num_epochs = int(sys.argv[10]) # 30
-		batch_size = int(sys.argv[11]) # 8
-		learning_rate = float(sys.argv[12]) # 1.0
 
 		#corpusXMLFiles = basePath + "data/ECB+_LREC2014/ECB+/" + str(corpusDir) + "/"
 		corpusXMLFiles = basePath + "data/ECB+_LREC2014/ECB+/"
@@ -58,8 +50,6 @@ class Test_hddcrp_baseline_evals:
 			corpusFilter = "ecb.xml"
 
 		corpus = ECBParser(corpusXMLFiles, ".xml", stitchMentions, reverseCorpus, isVerbose)
-		#corpus = ECBParser(corpusXMLFiles, corpusFilter, stitchMentions, reverseCorpus, isVerbose)
-
 		
 		# TMP: stores the conll file's lemmas
 		docSentTokenToLemma = {}

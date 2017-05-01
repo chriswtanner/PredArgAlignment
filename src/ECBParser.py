@@ -54,11 +54,17 @@ class ECBParser:
 		
 		self.docToHighestSentenceNum = defaultdict(int) # tmp, just for creating an aligned goldTruth from HDDCRP
 
+		# added so that we can easily parse the original sentence which contains each Mention
+		self.globalSentenceNumToTokens = defaultdict(list)
+
+		numFound = 0
+
 		files = []
 		for root, dirnames, filenames in os.walk(corpusXMLFiles):
 			for filename in fnmatch.filter(filenames, '*' + self.corpusFilter):
 				files.append(os.path.join(root, filename))
 		
+		globalSentenceNum = 0
 		for f in files:
 			doc_id = f[f.rfind("/") + 1:]
 			dir_num = int(doc_id.split("_")[0])
@@ -79,11 +85,13 @@ class ECBParser:
 			it = tuple(re.finditer(r"<token t\_id=\"(\d+)\" sentence=\"(\d+)\" number=\"(\d+)\".*?>(.*?)</(.*?)>", fileContents))
 			lastSentenceNum = -1
 
+
+			tokenNum = -1 # numbers every token in each given sentence, starting at 1 (each sentence starts at 1)
 			firstToken = True
 			for match in it:
 				t_id = match.group(1)
 				sentenceNum = int(match.group(2))
-				tokenNum = int(match.group(3))
+				#tokenNum = int(match.group(3))
 				tokenText = match.group(4).lower()
 
 				#print tokenText
@@ -94,50 +102,35 @@ class ECBParser:
 
 				if sentenceNum > 0 or "plus" not in doc_id:
 
-					#print "** not a 1st sent"
-
 					# we are starting a new sentence
 					if sentenceNum != lastSentenceNum:
 						
 						#print "** sent not equal to last"
 						# we are possibly ending the prev sentence
 						if not firstToken:
-						#if lastSentenceNum != -1:
-							#print "adding end1"
-							endToken = Token("-1", lastSentenceNum, -1, "<end>")
-							#exit(1)
-							#tokenToCorpusIndex[endToken] = numCorpusTokens
-							#numCorpusTokens = numCorpusTokens + 1
-							#self.corpusTokens.append(endToken)
-							tmpDocTokens.append(endToken)
 
-						#print "adding start"
-						startToken = Token("-1", sentenceNum, -1, "<start>")
-						#tokenToCorpusIndex[startToken] = numCorpusTokens
-						#numCorpusTokens = numCorpusTokens + 1
-						#self.corpusTokens.append(startToken)
+							endToken = Token("-1", lastSentenceNum, globalSentenceNum, tokenNum, "<end>")
+							tmpDocTokens.append(endToken)
+							globalSentenceNum = globalSentenceNum + 1
+
+						tokenNum = -1
+						startToken = Token("-1", sentenceNum, globalSentenceNum, tokenNum, "<start>")
+						#startToken = Token("-1", sentenceNum, -1, "<start>")
 						tmpDocTokens.append(startToken)
+						tokenNum = tokenNum + 1
 
 					# adds token
-					#print "adding [" + str(tokenText) + "]"
-					curToken = Token(t_id, sentenceNum, tokenNum, tokenText)
+					curToken = Token(t_id, sentenceNum, globalSentenceNum, tokenNum, tokenText)
 					tmpDocTokenIDsToTokens[t_id] = curToken
 					firstToken = False
-					#tokenIDsToToken[t_id] = curToken
-					#tokenToCorpusIndex[curToken] = numCorpusTokens
-					#numCorpusTokens = numCorpusTokens + 1
-					#self.corpusTokens.append(curToken)
 					tmpDocTokens.append(curToken)
+					tokenNum = tokenNum + 1
 				
 				lastSentenceNum = sentenceNum
 
-			#print "adding end2"
-			#exit(1)
-			endToken = Token("-1", lastSentenceNum, -1, "<end>")
-
-			#tokenToCorpusIndex[endToken] = numCorpusTokens
-			#numCorpusTokens = numCorpusTokens + 1
-			#self.corpusTokens.append(endToken)
+			endToken = Token("-1", lastSentenceNum, globalSentenceNum, tokenNum, "<end>")
+			globalSentenceNum = globalSentenceNum + 1
+			#endToken = Token("-1", lastSentenceNum, -1, "<end>")
 			tmpDocTokens.append(endToken)
 
 			if self.reverseCorpus.lower() == 'true':
@@ -186,8 +179,8 @@ class ECBParser:
 						# this was comprised in order (e.g., 3,4), so we want to reverse it
 						if self.reverseCorpus.lower() == 'true':
 							tokens_stitched_together.reverse()
-
-						stitched_token = Token(-2, -2, -2, "", True, tokens_stitched_together)
+						
+						stitched_token = Token(-2, -2, -2, -2, "", True, tokens_stitched_together)
 						stitchedTokens.append(stitched_token)
 
 						# points the constituent Tokens to its new stitched-together Token
@@ -293,6 +286,12 @@ class ECBParser:
 					self.dmToMention[(doc_id,m_id)] = curMention
 					self.mentions.append(curMention)
 
+					'''
+					if doc_id == "23_1ecbplus.xml":
+						print "parsed: " + str(curMention)
+						print "\thas tokens: " + str(curMention.tokens[0])
+						numFound += 1
+					'''
 			# reads <relations>
 			relations = fileContents[fileContents.find("<Relations>"):fileContents.find("</Relations>")]
 			regex = r"<CROSS_DOC_COREF.*?note=\"(.+?)\".*?>(.*?)?</.*?>"
@@ -309,11 +308,26 @@ class ECBParser:
 					self.dmToREF[(doc_id,m_id)] = ref_id
 					self.refToDMs[ref_id].append((doc_id,m_id))
 
-		# sets the corpus type-based variables
+		# (1) sets the corpus type-based variables AND
+		# (2) sets the globalSentenceTokens so that we can parse the original sentences
 		for t in self.corpusTokens:
+			# (1)
 			g_id = self.getGlobalTypeID(t.text)
 			self.corpusTypeIDs.append(g_id)
+			
+			# (2)
+			self.globalSentenceNumToTokens[t.globalSentenceNum].append(t)
 
+
+		# prints sentences
+		'''
+		for k, v in self.globalSentenceNumToTokens.iteritems():
+			out = str(k) + ":"
+			for t in v:
+				out += " " + t.text
+			print out
+		'''
+		
 		'''
 		if isVerbose:
 			i=0

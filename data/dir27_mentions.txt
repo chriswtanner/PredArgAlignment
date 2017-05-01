@@ -1,0 +1,431 @@
+
+=====================================
+    DIR 27 (has 28 unique entity clusters, which follow below)
+=====================================
+
+-------------
+REF: ACT16759683188477295
+-------------
+
+<start> microsoft has issued a rare emergency update for its internet explorer browser as miscreants **[ stepped up ]** attacks targeting a vulnerability on hundreds of thousands of webpages . <end> 
+
+<start> with web attacks **[ increasing ]** , microsoft fixes ie bug <end> 
+
+<start> microsoft issues emergency ie patch as attacks **[ escalate ]** <end> 
+
+-------------
+REF: ACT16628483776494389
+-------------
+
+<start> while microsoft claims that it has received reports of **[ attacks ]** aimed at internet explorer 8 and 9 , it appears that the security flaw affects all the other versions of the browser . <end> 
+
+<start> microsoft released an emergency software fix for internet explorer on tuesday after hackers exploited a security flaw in the popular web browser to **[ attack ]** an unknown number of users . <end> 
+
+<start> microsoft rushes emergency fix to address internet explorer **[ attacks ]** <end> 
+
+<start> microsoft has rushed out a temporary fix to address ongoing **[ attacks ]** targeting an internet explorer zero - day vulnerability . <end> 
+
+<start> the software giant said the fix - it temporary workaround should be effective in preventing a successful **[ attack ]** . <end> 
+
+<start> the company said the vulnerability impacts all currently supported versions of the browser , but **[ attacks ]** have been limited to users of internet explorer 8 and internet explorer 9 . <end> 
+
+<start> that happened last week as scheduled , but today the company announced it has rushed out an additional patch designed to fix an exploit that has been found in internet explorer , and is being used in **[ attacks ]** on ie8 and ie9 . <end> 
+
+<start> since then , though , a new flaw has been targeted by **[ attacks ]** in the wild , so microsoft has responded with an out - of - band update . <end> 
+
+<start> the software maker said on its website it released the software , known as a "fix it , " as an emergency measure to protect customers after learning about "extremely limited , targeted **[ attacks" ]** that made use of the newly discovered bug . <end> 
+
+-------------
+REF: NEG16628966259122954
+-------------
+
+<start> microsoft said today that attackers are exploiting a previously **[ unknown ]** , unpatched vulnerability in all supported versions of its internet explorer web browser . <end> 
+
+-------------
+REF: ACT16628977102558972
+-------------
+
+<start> while microsoft **[ claims ]** that it has received reports of attacks aimed at internet explorer 8 and 9 , it appears that the security flaw affects all the other versions of the browser . <end> 
+
+-------------
+REF: ACT28452315024913912
+-------------
+
+<start> microsoft has just released a new security update for internet explorer in order to patch a flaw **[ affecting ]** all versions of the company ’ s in - house browser , including ie11 on windows 8 . 1 rtm . <end> 
+
+<start> while microsoft claims that it has received reports of attacks aimed at internet explorer 8 and 9 , it appears that the security flaw **[ affects ]** all the other versions of the browser . <end> 
+
+<start> microsoft : ie zero day flaw **[ affects ]** all versions <end> 
+
+-------------
+REF: ACT16759674029446388
+-------------
+
+<start> the patch , which microsoft dubbed ms08-078 , fixes a security vulnerability that microsoft says already has been used to **[ attack ]** more than 2 million windows users . <end> 
+
+<start> with web **[ attacks ]** increasing , microsoft fixes ie bug <end> 
+
+<start> microsoft issues emergency ie patch as **[ attacks ]** escalate <end> 
+
+<start> microsoft has issued a rare emergency update for its internet explorer browser as miscreants stepped up **[ attacks ]** targeting a vulnerability on hundreds of thousands of webpages . <end> 
+
+<start> microsoft on wednesday issued an urgent patch to fix an internet explorer ( ie ) web browser flaw that may have been used by hackers to **[ attack ]** millions of computer users . <end> 
+
+-------------
+REF: ACT16759694191093666
+-------------
+
+<start> microsoft released a critical security patch on wednesday to plug vulnerabilities in internet explorer , a move that comes amid malicious attackers **[ taking advantage ]** of the security flaws . <end> 
+
+<start> the us software giant said security update ms08-078 addresses a vulnerability cyber-criminals can **[ exploit ]** to their advantage . <end> 
+
+<start> microsoft ( nsdq : msft ) has released an out-of-band security update , ms08-078 , to fix a vulnerability in its internet explorer web browser that 's being actively **[ exploited ]** . <end> 
+
+<start> as it promised [ tuesday ] , microsoft corp. today issued an emergency patch to plug a critical hole in internet explorer ( ie ) that attackers have been increasingly **[ exploiting ]** from hacked web sites . <end> 
+
+<start> the patch , which microsoft dubbed ms08-078 , fixes a security vulnerability that microsoft says already has been **[ used ]** to attack more than 2 million windows users . <end> 
+
+<start> microsoft on wednesday issued an urgent patch to fix an internet explorer ( ie ) web browser flaw that may have been **[ used ]** by hackers to attack millions of computer users . <end> 
+
+<start> microsoft today issued an emergency update to plug a critical security hole present in all versions of its internet explorer web browser , a flaw that hackers have been **[ leveraging ]** to steal data from millions of windows users . <end> 
+
+-------------
+REF: ACT16628292037757658
+-------------
+
+<start> 'the fix' will remedy a vulnerability that allows an attacker to gain remote **[ control ]** of a windows machine . . <end> 
+
+-------------
+REF: ACT16632487083891659
+-------------
+
+<start> the us software giant said on tuesday that in response to `` the threat to customers '' it immediately mobilized security engineering teams worldwide to **[ deliver ]** a software cure `` in the unprecedented time of eight days . '' <end> 
+
+<start> microsoft released a critical security patch on wednesday to plug vulnerabilities in internet explorer , a **[ move ]** that comes amid malicious attackers taking advantage of the security flaws . <end> 
+
+<start> microsoft **[ releases ]** critical patch for ie zero day flaw <end> 
+
+<start> microsoft ( nsdq : msft ) **[ issued ]** an out-of-band emergency patch wednesday for a zero-day internet explorer vulnerability that has opened the door for hackers to install malware on susceptible computers without any user intervention . <end> 
+
+<start> microsoft on wednesday **[ released ]** an emergency patch to fix a perilous software flaw allowing hackers to hijack internet explorer browsers and take over computers . <end> 
+
+<start> microsoft has **[ released ]** an emergency patch to fix a software flaw that allows hackers to get into internet explorer browsers and take over computers . <end> 
+
+<start> microsoft today **[ issued ]** an emergency update to plug a critical security hole present in all versions of its internet explorer web browser , a flaw that hackers have been leveraging to steal data from millions of windows users . <end> 
+
+<start> `` microsoft 's latest ie out-of-band patch **[ release ]** needs to be installed right away , '' said shavlik technologies in a statement . <end> 
+
+<start> microsoft **[ released ]** a critical security patch on wednesday to plug vulnerabilities in internet explorer , a move that comes amid malicious attackers taking advantage of the security flaws . <end> 
+
+<start> microsoft ( nsdq : msft ) has **[ released ]** an out-of-band security update , ms08-078 , to fix a vulnerability in its internet explorer web browser that 's being actively exploited . <end> 
+
+<start> microsoft was to **[ release ]** an emergency patch yesterday to fix a perilous software flaw allowing hackers to hijack internet explorer ( ie ) browsers and take over computers . <end> 
+
+<start> the software patch , which was **[ released ]** last night , has closed a loophole that has seen the computers of at least two million users hacked by cyber criminals . <end> 
+
+<start> `` microsoft has **[ released ]** a security update for internet explorer that will help protect its customers from malicious attacks , '' said the company in a statement . <end> 
+
+<start> microsoft today **[ released ]** a patch for the latest internet explorer ( ie ) browser vulnerability that has been in the news since last week . <end> 
+
+<start> as it promised [ tuesday ] , microsoft corp. today **[ issued ]** an emergency patch to plug a critical hole in internet explorer ( ie ) that attackers have been increasingly exploiting from hacked web sites . <end> 
+
+<start> microsoft has **[ released ]** an emergency security update to fix the vulnerability in internet explorer that has seen the computers of at least two million users hacked . <end> 
+
+<start> microsoft has **[ issued ]** an emergency patch for its internet explorer browser , aiming to fix a critical flaw that allowed hackers to take over computers merely by steering them to infected websites . <end> 
+
+<start> microsoft wednesday took the rare step of **[ issuing ]** the patch after numerous security experts advised people to switch to rival browsers until microsoft fixed the problem . <end> 
+
+<start> in record time , microsoft **[ released ]** today an `` out of band '' patch for a significant security flaw in internet explorer that burst onto the scene 8 days ago . <end> 
+
+<start> microsoft has **[ issued ]** a security patch to fix a critical vulnerability in its internet explorer browser which it said has attacked over 2m windows users . <end> 
+
+<start> microsoft **[ issues ]** emergency ie patch as attacks escalate <end> 
+
+<start> microsoft has **[ issued ]** a rare emergency update for its internet explorer browser as miscreants stepped up attacks targeting a vulnerability on hundreds of thousands of webpages . <end> 
+
+<start> microsoft on wednesday **[ issued ]** an urgent patch to fix an internet explorer ( ie ) web browser flaw that may have been used by hackers to attack millions of computer users . <end> 
+
+-------------
+REF: ACT16628380851866429
+-------------
+
+<start> microsoft will **[ push out ]** an out - of - cycle windows patch to temporarily fix the critical internet explorer flaw revealed earlier this week . <end> 
+
+<start> microsoft has just **[ released ]** a new security update for internet explorer in order to patch a flaw affecting all versions of the company ’ s in - house browser , including ie11 on windows 8 . 1 rtm . <end> 
+
+<start> microsoft **[ releases ]** security patch for internet explorer <end> 
+
+<start> microsoft **[ released ]** an emergency software fix for internet explorer on tuesday after hackers exploited a security flaw in the popular web browser to attack an unknown number of users . <end> 
+
+<start> microsoft **[ releases ]** fix for 'zero - day' ie browser bug <end> 
+
+<start> microsoft has **[ released ]** a temporary patch to fix a "zero - day" , or previously unknown , vulnerability in its internet explorer ( ie ) web browser . <end> 
+
+<start> microsoft **[ releases ]** out - of - cycle patch for ie flaw <end> 
+
+<start> microsoft's bad september continues to grow worse , with the company being forced to **[ issue ]** an out - of - cycle patch for a zero - day vulnerability in its internet explorer web browser . <end> 
+
+<start> today's admission from the company isn't going to do much to salve its public image , either : microsoft has confirmed that a flaw in its internet explorer web browser is being actively exploited in targeted attacks , and considers the issue serious enough to **[ release ]** an out - of - cycle fix ahead of next month's patch tuesday . <end> 
+
+<start> microsoft **[ issues ]** patch to fix ie bug <end> 
+
+<start> microsoft has reportedly **[ issued ]** a patch to fix a previously unknown vulnerability in its internet explorer ( ie ) web browser . <end> 
+
+<start> the company said it is working on an official patch to plug the security hole , but in the meantime it has **[ released ]** a stopgap fix to help protect affected customers . <end> 
+
+<start> microsoft to **[ release ]** patch for internet explorer <end> 
+
+<start> the company has **[ released ]** a "fix - it" patch , "cve - 2013 - 3893 mshtml shim workaround" to plug this security hole in all currently supported versions of ie . <end> 
+
+<start> it ’ s not patch tuesday , but microsoft has **[ released ]** a crucial update for internet explorer that you should apply immediately . <end> 
+
+<start> microsoft **[ launches ]** emergency patch for internet explorer <end> 
+
+<start> microsoft **[ rushes ]** emergency fix to address internet explorer attacks <end> 
+
+<start> microsoft has **[ rushed out ]** a temporary fix to address ongoing attacks targeting an internet explorer zero - day vulnerability . <end> 
+
+<start> microsoft **[ rushes out ]** security patch for internet explorer <end> 
+
+<start> that happened last week as scheduled , but today the company announced it has **[ rushed out ]** an additional patch designed to fix an exploit that has been found in internet explorer , and is being used in attacks on ie8 and ie9 . <end> 
+
+<start> microsoft **[ rushes ]** urgent fix for internet explorer <end> 
+
+<start> until microsoft **[ produces ]** a patch , the company offered customers several options to protect themselves , including advice on configuring emet 4 . 0 and running one of its "fixit" automated tools to "shim" the dll that contains the ie rendering engine . <end> 
+
+<start> since then , though , a new flaw has been targeted by attacks in the wild , so microsoft has **[ responded ]** with an out - of - band update . <end> 
+
+-------------
+REF: ACT16628271421792378
+-------------
+
+<start> 'the fix' will remedy a vulnerability that allows an attacker to **[ gain ]** remote control of a windows machine . . <end> 
+
+-------------
+REF: ACT27376725138038411
+-------------
+
+<start> microsoft ( nsdq : msft ) issued an out-of-band emergency patch wednesday for a zero-day internet explorer vulnerability that has **[ opened ]** the **[ door ]** for hackers to install malware on susceptible computers without any user intervention . <end> 
+
+<start> microsoft on wednesday released an emergency patch to fix a perilous software flaw **[ allowing ]** hackers to hijack internet explorer browsers and take over computers . <end> 
+
+<start> microsoft has released an emergency patch to fix a software flaw that **[ allows ]** hackers to get into internet explorer browsers and take over computers . <end> 
+
+<start> microsoft was to release an emergency patch yesterday to fix a perilous software flaw **[ allowing ]** hackers to hijack internet explorer ( ie ) browsers and take over computers . <end> 
+
+<start> microsoft has issued an emergency patch for its internet explorer browser , aiming to fix a critical flaw that **[ allowed ]** hackers to take over computers merely by steering them to infected websites . <end> 
+
+<start> the security update for ie , dubbed ms08-078 , resolves a publicly disclosed vulnerability that `` could **[ allow ]** remote code execution if a user views a specially crafted web page using internet explorer , '' the software giant said in a statement . <end> 
+
+-------------
+REF: ACT16628956656439146
+-------------
+
+<start> microsoft will push out an out - of - cycle windows patch to temporarily fix the critical internet explorer flaw **[ revealed ]** earlier this week . <end> 
+
+-------------
+REF: ACT16632585233015283
+-------------
+
+<start> specifically , microsoft 's ie update **[ affects ]** versions of windows 2000 for ie 5.01 : xp , xp professional , server 2003 for ie 6 ; and xp , server 2003 , vista , server 2008 for ie 7 . <end> 
+
+-------------
+REF: ACT16628469504676387
+-------------
+
+<start> microsoft has released a temporary patch to **[ fix ]** a "zero - day" , or previously unknown , vulnerability in its internet explorer ( ie ) web browser . <end> 
+
+<start> microsoft issues patch to **[ fix ]** ie bug <end> 
+
+<start> microsoft has reportedly issued a patch to **[ fix ]** a previously unknown vulnerability in its internet explorer ( ie ) web browser . <end> 
+
+<start> microsoft will push out an out - of - cycle windows patch to temporarily **[ fix ]** the critical internet explorer flaw revealed earlier this week . <end> 
+
+<start> that happened last week as scheduled , but today the company announced it has rushed out an additional patch designed to **[ fix ]** an exploit that has been found in internet explorer , and is being used in attacks on ie8 and ie9 . <end> 
+
+<start> computerworld - microsoft today said that hackers are exploiting a critical , but unpatched , vulnerability in internet explorer 8 ( ie8 ) and internet explorer 9 ( ie9 ) , and that its engineers are working on an update to **[ plug ]** the hole . <end> 
+
+<start> the company said it is working on an official patch to **[ plug ]** the security hole , but in the meantime it has released a stopgap fix to help protect affected customers . <end> 
+
+<start> the company has released a "fix - it" patch , "cve - 2013 - 3893 mshtml shim workaround" to **[ plug ]** this security hole in all currently supported versions of ie . <end> 
+
+<start> microsoft has just released a new security update for internet explorer in order to **[ patch ]** a flaw affecting all versions of the company ’ s in - house browser , including ie11 on windows 8 . 1 rtm . <end> 
+
+<start> 'the fix' will **[ remedy ]** a vulnerability that allows an attacker to gain remote control of a windows machine . . <end> 
+
+-------------
+REF: ACT16632539609441083
+-------------
+
+<start> the software patch , which was released last night , has **[ closed ]** a loophole that has seen the computers of at least two million users hacked by cyber criminals . <end> 
+
+<start> microsoft on wednesday released an emergency patch to **[ fix ]** a perilous software flaw allowing hackers to hijack internet explorer browsers and take over computers . <end> 
+
+<start> microsoft has released an emergency patch to **[ fix ]** a software flaw that allows hackers to get into internet explorer browsers and take over computers . <end> 
+
+<start> the patch , which microsoft dubbed ms08-078 , **[ fixes ]** a security vulnerability that microsoft says already has been used to attack more than 2 million windows users . <end> 
+
+<start> with web attacks increasing , microsoft **[ fixes ]** ie bug <end> 
+
+<start> microsoft ( nsdq : msft ) has released an out-of-band security update , ms08-078 , to **[ fix ]** a vulnerability in its internet explorer web browser that 's being actively exploited . <end> 
+
+<start> microsoft was to release an emergency patch yesterday to **[ fix ]** a perilous software flaw allowing hackers to hijack internet explorer ( ie ) browsers and take over computers . <end> 
+
+<start> microsoft has said that an emergency security update has **[ fixed ]** a flaw in internet explorer that left millions of computers vulnerable to hacking and hijack . <end> 
+
+<start> microsoft has released an emergency security update to **[ fix ]** the vulnerability in internet explorer that has seen the computers of at least two million users hacked . <end> 
+
+<start> microsoft has issued an emergency patch for its internet explorer browser , aiming to **[ fix ]** a critical flaw that allowed hackers to take over computers merely by steering them to infected websites . <end> 
+
+<start> microsoft wednesday took the rare step of issuing the patch after numerous security experts advised people to switch to rival browsers until microsoft **[ fixed ]** the problem . <end> 
+
+<start> microsoft has issued a security patch to **[ fix ]** a critical vulnerability in its internet explorer browser which it said has attacked over 2m windows users . <end> 
+
+<start> microsoft on wednesday issued an urgent patch to **[ fix ]** an internet explorer ( ie ) web browser flaw that may have been used by hackers to attack millions of computer users . <end> 
+
+<start> the us software giant said security update ms08-078 **[ addresses ]** a vulnerability cyber-criminals can exploit to their advantage . <end> 
+
+<start> microsoft today issued an emergency update to **[ plug ]** a critical security hole present in all versions of its internet explorer web browser , a flaw that hackers have been leveraging to steal data from millions of windows users . <end> 
+
+<start> microsoft released a critical security patch on wednesday to **[ plug ]** vulnerabilities in internet explorer , a move that comes amid malicious attackers taking advantage of the security flaws . <end> 
+
+<start> as it promised [ tuesday ] , microsoft corp. today issued an emergency patch to **[ plug ]** a critical hole in internet explorer ( ie ) that attackers have been increasingly exploiting from hacked web sites . <end> 
+
+<start> the security update for ie , dubbed ms08-078 , **[ resolves ]** a publicly disclosed vulnerability that `` could allow remote code execution if a user views a specially crafted web page using internet explorer , '' the software giant said in a statement . <end> 
+
+-------------
+REF: ACT16628911741694920
+-------------
+
+<start> computerworld - microsoft today **[ said ]** that hackers are exploiting a critical , but unpatched , vulnerability in internet explorer 8 ( ie8 ) and internet explorer 9 ( ie9 ) , and that its engineers are working on an update to plug the hole . <end> 
+
+<start> microsoft **[ said ]** today that attackers are exploiting a previously unknown , unpatched vulnerability in all supported versions of its internet explorer web browser . <end> 
+
+-------------
+REF: ACT27376525645832010
+-------------
+
+<start> microsoft has released an emergency patch to fix a software flaw that allows hackers to **[ get into ]** internet explorer browsers and take over computers . <end> 
+
+<start> microsoft on wednesday released an emergency patch to fix a perilous software flaw allowing hackers to **[ hijack ]** internet explorer browsers and take over computers . <end> 
+
+<start> microsoft was to release an emergency patch yesterday to fix a perilous software flaw allowing hackers to **[ hijack ]** internet explorer ( ie ) browsers and take over computers . <end> 
+
+-------------
+REF: ACT16628926406902821
+-------------
+
+<start> the software maker **[ said ]** on its website it released the software , known as a "fix it , " as an emergency measure to protect customers after learning about "extremely limited , targeted attacks" that made use of the newly discovered bug . <end> 
+
+<start> that happened last week as scheduled , but today the company **[ announced ]** it has rushed out an additional patch designed to fix an exploit that has been found in internet explorer , and is being used in attacks on ie8 and ie9 . <end> 
+
+-------------
+REF: ACT16628339393919140
+-------------
+
+<start> apply the urgent fix - it solution from microsoft to **[ protect ]** internet explorer from exploits . <end> 
+
+-------------
+REF: ACT16628577311223281
+-------------
+
+<start> computerworld - microsoft today said that hackers are exploiting a critical , but **[ unpatched ]** , vulnerability in internet explorer 8 ( ie8 ) and internet explorer 9 ( ie9 ) , and that its engineers are working on an update to plug the hole . <end> 
+
+<start> microsoft said today that attackers are exploiting a previously unknown , **[ unpatched ]** vulnerability in all supported versions of its internet explorer web browser . <end> 
+
+-------------
+REF: ACT16632565623246075
+-------------
+
+<start> `` microsoft has released a security update for internet explorer that will help protect its customers from malicious **[ attacks ]** , '' said the company in a statement . <end> 
+
+<start> microsoft has issued a security patch to fix a critical vulnerability in its internet explorer browser which it said has **[ attacked ]** over 2m windows users . <end> 
+
+<start> microsoft has said that an emergency security update has fixed a flaw in internet explorer that left millions of computers vulnerable to **[ hacking ]** and hijack . <end> 
+
+<start> microsoft has said that an emergency security update has fixed a flaw in internet explorer that left millions of computers vulnerable to hacking and **[ hijack ]** . <end> 
+
+<start> microsoft on wednesday released an emergency patch to fix a perilous software flaw allowing hackers to hijack internet explorer browsers and **[ take over ]** computers . <end> 
+
+<start> microsoft has released an emergency patch to fix a software flaw that allows hackers to get into internet explorer browsers and **[ take over ]** computers . <end> 
+
+<start> microsoft was to release an emergency patch yesterday to fix a perilous software flaw allowing hackers to hijack internet explorer ( ie ) browsers and **[ take over ]** computers . <end> 
+
+<start> microsoft has issued an emergency patch for its internet explorer browser , aiming to fix a critical flaw that allowed hackers to **[ take over ]** computers merely by steering them to infected websites . <end> 
+
+<start> the us software giant said on tuesday that in response to `` the **[ threat ]** to customers '' it immediately mobilized security engineering teams worldwide to deliver a software cure `` in the unprecedented time of eight days . '' <end> 
+
+<start> the software patch , which was released last night , has closed a loophole that has seen the computers of at least two million users **[ hacked ]** by cyber criminals . <end> 
+
+<start> microsoft has released an emergency security update to fix the vulnerability in internet explorer that has seen the computers of at least two million users **[ hacked ]** . <end> 
+
+<start> the security update for ie , dubbed ms08-078 , resolves a publicly disclosed vulnerability that `` could allow **[ remote code execution ]** if a user views a specially crafted web page using internet explorer , '' the software giant said in a statement . <end> 
+
+-------------
+REF: ACT16628372713940200
+-------------
+
+<start> microsoft has issued a rare emergency update for its internet explorer browser as miscreants stepped up attacks **[ targeting ]** a vulnerability on hundreds of thousands of webpages . <end> 
+
+<start> microsoft has rushed out a temporary fix to address ongoing attacks **[ targeting ]** an internet explorer zero - day vulnerability . <end> 
+
+-------------
+REF: ACT16628446210704189
+-------------
+
+<start> the software maker said on its website it released the software , known as a "fix it , " as an emergency measure to **[ protect ]** customers after learning about "extremely limited , targeted attacks" that made use of the newly discovered bug . <end> 
+
+<start> until microsoft produces a patch , the company offered customers several options to **[ protect ]** themselves , including advice on configuring emet 4 . 0 and running one of its "fixit" automated tools to "shim" the dll that contains the ie rendering engine . <end> 
+
+<start> the company said it is working on an official patch to plug the security hole , but in the meantime it has released a stopgap fix to help **[ protect ]** affected customers . <end> 
+
+-------------
+REF: ACT16628434506216499
+-------------
+
+<start> computerworld - microsoft today said that hackers are exploiting a critical , but unpatched , vulnerability in internet explorer 8 ( ie8 ) and internet explorer 9 ( ie9 ) , and that its engineers are **[ working ]** on an update to plug the hole . <end> 
+
+<start> the company said it is **[ working on ]** an official patch to plug the security hole , but in the meantime it has released a stopgap fix to help protect affected customers . <end> 
+
+-------------
+REF: ACT16727656023335002
+-------------
+
+<start> the us software giant **[ said ]** security update ms08-078 addresses a vulnerability cyber-criminals can exploit to their advantage . <end> 
+
+<start> microsoft has **[ said ]** that an emergency security update has fixed a flaw in internet explorer that left millions of computers vulnerable to hacking and hijack . <end> 
+
+<start> `` microsoft has released a security update for internet explorer that will help protect its customers from malicious attacks , '' **[ said ]** the company in a statement . <end> 
+
+<start> microsoft has issued a security patch to fix a critical vulnerability in its internet explorer browser which it **[ said ]** has attacked over 2m windows users . <end> 
+
+<start> the security update for ie , dubbed ms08-078 , resolves a publicly disclosed vulnerability that `` could allow remote code execution if a user views a specially crafted web page using internet explorer , '' the software giant **[ said ]** in a statement . <end> 
+
+-------------
+REF: ACT16628282010133294
+-------------
+
+<start> the software maker said on its website it released the software , known as a "fix it , " as an emergency measure to protect customers after learning about "extremely limited , targeted attacks" that **[ made use of ]** the newly discovered bug . <end> 
+
+<start> microsoft released an emergency software fix for internet explorer on tuesday after hackers **[ exploited ]** a security flaw in the popular web browser to attack an unknown number of users . <end> 
+
+<start> hackers **[ exploit ]** critical ie bug ; microsoft promises patch <end> 
+
+<start> computerworld - microsoft today said that hackers are **[ exploiting ]** a critical , but unpatched , vulnerability in internet explorer 8 ( ie8 ) and internet explorer 9 ( ie9 ) , and that its engineers are working on an update to plug the hole . <end> 
+
+<start> microsoft said today that attackers are **[ exploiting ]** a previously unknown , unpatched vulnerability in all supported versions of its internet explorer web browser . <end> 
+
+<start> apply the urgent fix - it solution from microsoft to protect internet explorer from **[ exploits ]** . <end> 
+
+<start> that happened last week as scheduled , but today the company announced it has rushed out an additional patch designed to fix an exploit that has been found in internet explorer , and is being **[ used ]** in attacks on ie8 and ie9 . <end> 
+
+-------------
+REF: ACT16628349924253470
+-------------
+
+<start> microsoft rushes emergency fix to **[ address ]** internet explorer attacks <end> 
+
+<start> microsoft has rushed out a temporary fix to **[ address ]** ongoing attacks targeting an internet explorer zero - day vulnerability . <end> 
+
+<start> the software giant said the fix - it temporary workaround should be effective in **[ preventing ]** a successful attack . <end> 
+
