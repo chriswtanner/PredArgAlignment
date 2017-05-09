@@ -4,7 +4,7 @@ sys.path.append('/gpfs/main/home/christanner/.local/lib/python2.7/site-packages/
 import tensorflow as tf
 import numpy as np
 
-from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
 from ECBParser import ECBParser
 from ECBHelper import ECBHelper
 from LSTM_old import LSTM_old
@@ -20,6 +20,28 @@ class Test:
 		tf.logging.set_verbosity(tf.logging.ERROR)
 		isVerbose = True
 
+		# scratch pad
+
+
+		X = [] #np.empty() # array() #zeros(6)) #[[1, 2], [1, 4], [1, 0],[4, 2], [4, 4], [4, 0]])
+		a = [float(1.0),float(2.0),float(1.0),float(2.0)]
+		b = [float(2.0),float(1.0),float(1.0),float(2.0)]
+		c = [float(1.0),float(3.0),float(1.0),float(2.0)]
+		d = [float(4.0),float(2.0),float(1.0),float(2.0)]
+		X.append(a)
+		X.append(b)
+		X.append(c)
+		X.append(d)
+		X.append(a)
+		X.append(b)
+		X.append(c)
+		X.append(d)		
+		print(type(X))
+		print(X)
+		print(len(X))
+		agg = AgglomerativeClustering(n_clusters=3).fit(X)
+		print(agg.labels_)
+		exit(1)
 
 		basePath = sys.argv[1] # /Users/christanner/research/PredArgAlignment/ or /data/people/christanner/
 		corpusDir = int(sys.argv[2]) # 25  (-1 is the flag for running a global model across all dirs)
@@ -126,15 +148,6 @@ class Test:
 			print("\t" + str(mention2Vec[mention]))
 			exit(1)
 
-		# scratch pad
-		X = np.array([[1, 2], [1, 4], [1, 0],[4, 2], [4, 4], [4, 0]])
-		print(X.shape)
-		print(type(X))
-		print(X)
-		exit(1)
-		kmeans = KMeans(n_clusters=4, random_state=0).fit(X)
-		print(kmeans.labels_)
-		kmeans.predict([[0, 0], [4, 4]])
-		print(kmeans.cluster_centers_)
+
 
 		#nn = multilayer_perceptron(helper, model, params)
