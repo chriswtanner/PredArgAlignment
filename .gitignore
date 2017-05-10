@@ -1,4 +1,5 @@
 data_old/*
+data/glove.6B.300d.txt
 models/*
 results_old/*
 slides/*
